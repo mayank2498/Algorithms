@@ -1,43 +1,63 @@
-#include <iostream>
-#include <deque>
+// maximum element in a sliding window
+// using dequeue
+
+#include<iostream>
+
+#include<bits/stdc++.h>
 #define loop(i,a,b) for(int i=a;i<b;i++)
 using namespace std;
-deque<int>::iterator it;
 
-void display(deque<int> Q){
+
+void showDQ(deque<int> DQ){
+    deque<int> :: iterator it;
+    cout<<"\nDeque is : ";
+
+    for(it=DQ.begin(); it!=DQ.end(); it++)
+        cout<<*it<<" ";
+
     cout<<endl;
-    for(it=Q.begin();it!=Q.end();it++){ cout<<*it<<" "; }
 }
 
-void max_in_a_window(int arr[],int n,int k){
-    deque<int> Q(k);
+void maxInSlidingWindow(int * A,int k,int * B,int n){
+    deque<int> DQ;
     loop(i,0,k){
-
-        while( !Q.empty() && arr[i]>=arr[Q.back()] )
-            {   Q.pop_back();}
-        Q.push_back(i);
+        while( !DQ.empty() && A[i] > A[DQ.back()] ){
+            DQ.pop_back();
+        }
+        DQ.push_back(i);
     }
+    //showDQ(DQ);
 
-    int * ans = new int[n-k+1];
+    int result = 0;
+
 
     loop(i,k,n){
-        cout<<arr[Q.front()]<<" ";
-        ans[i-k] = Q.front();
-        if(  !Q.empty() && Q.front() < i-k+1 ){
-            Q.pop_front();
+        B[result++] = A[DQ.front()];
+
+        // element at the front of the queue is out of the window remove it
+        if( (i-DQ.front())  >= k ){   DQ.pop_front();  }
+
+        while( !DQ.empty() && A[i] > A[DQ.back()] ){
+            DQ.pop_back();
         }
-        while( !Q.empty() && arr[i]>=arr[Q.back()] )
-            Q.pop_back();
-        Q.push_back(i);
+        DQ.push_back(i);
     }
-    cout<<arr[Q.front()];
+    // last element remains in the deque
+    B[result] = A[DQ.front()];
+
+        cout<<"\n";
+    loop(i,0,n-k+1){
+        cout<<B[i]<<" ";
+    }
 }
 
-int main()
-{
-    int arr[] = {5,3,4,1,6,2,2,4,3,1,5};
-    int n = sizeof(arr)/sizeof(arr[0]);
+
+int main(){
+    int A[] = {5,3,4,1,6,2,2,4,3,1,5};
     int k = 3;
-    max_in_a_window(arr,n,k);
-    return 0;
+
+    int n = sizeof(A)/sizeof(A[0]);
+    int B[n-k+1];
+    maxInSlidingWindow(A,k,B,n);
 }
+
