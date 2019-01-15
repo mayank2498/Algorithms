@@ -1,7 +1,12 @@
+
+
 #define loop(i,a,b) for(int i=a;i<b;i++)
 #include<bits/stdc++.h>
 #define MAX 1000000
 using namespace std;
+
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
 
 int wild_card_matching(int ** dp,int rows,int cols,string str,string pattern){
     dp[0][0] = 1; // empty strings always match

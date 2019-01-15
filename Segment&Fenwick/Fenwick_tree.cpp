@@ -53,7 +53,7 @@ int * construct_fenwick_tree(int arr[],int size){
     }
 
     // display fenwick tree
-    //loop(i,1,size+1){ cout<<fen_tree[i]<<" ";  }
+    loop(i,1,size+1){ cout<<fen_tree[i]<<" ";  }
 
     return fen_tree;
 }

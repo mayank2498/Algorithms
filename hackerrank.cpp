@@ -53,7 +53,6 @@ void redKnight(int n,cell Start,cell End){
 
 
         for(int i=0;i<6;i++){
-
             c = cell(path.back().first.x,path.back().first.y);
             cell newcell(c.x+choice[i][0],c.y+choice[i][1]);
 
@@ -75,4 +74,3 @@ int main()
     redKnight(n,cell(si,sj),cell(ei,ej));
     return 0;
 }
-
